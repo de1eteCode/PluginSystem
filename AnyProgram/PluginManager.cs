@@ -66,12 +66,12 @@ public class PluginManager {
 
         dll = Path.GetFullPath(dll);
 
-        var assemblyLoadContext = new AssemblyLoadContext(dll);
-        var assembly = assemblyLoadContext.LoadFromAssemblyPath(dll);
-
-        IPlugin? plugin = null;
-
         try {
+            var assemblyLoadContext = new AssemblyLoadContext(dll);
+            var assembly = assemblyLoadContext.LoadFromAssemblyPath(dll);
+
+            IPlugin? plugin = null;
+
             plugin = Activator.CreateInstance(assembly.GetTypes().FirstOrDefault()) as IPlugin;
             if (plugin != null) {
                 _plugins[pluginName] = plugin;
